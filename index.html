@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Uneath</title>
+  <meta name="description" content="Uneath, Inc. — Palo Alto, California.">
+  <meta property="og:title" content="Uneath">
+  <meta property="og:description" content="Uneath, Inc. — Palo Alto, California.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://uneath.com/">
+  <meta name="theme-color" content="#1B1B1B">
+  <link rel="icon" href="favicon.ico" sizes="32x32">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&family=B612+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-center: #2A2A2A;
+      --bg-mid: #1D1D1D;
+      --bg-edge: #131313;
+      --white: #FFFFFF;
+      --white-soft: rgba(255, 255, 255, 0.82);
+      --value: rgba(255, 255, 255, 0.86);
+      --label: rgba(255, 255, 255, 0.5);
+      --rule: rgba(255, 255, 255, 0.16);
+      --inset: 20px;
+    }
+    @media (max-width: 640px) { :root { --inset: 12px; } }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--bg-mid); }
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--inset);
+      background: radial-gradient(ellipse 80% 70% at 50% 45%, var(--bg-center) 0%, var(--bg-mid) 60%, var(--bg-edge) 100%);
+      color: var(--white);
+      font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    ::selection { background: var(--white); color: var(--bg-edge); }
+
+    /* Sheet frame with ISO-style centering marks */
+    .frame {
+      position: fixed;
+      inset: var(--inset);
+      border: 1px solid var(--rule);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .frame::before, .frame::after, .frame i::before, .frame i::after {
+      content: "";
+      position: absolute;
+      background: var(--rule);
+    }
+    .frame::before   { top: -1px;    left: 50%; width: 1px; height: 8px; }
+    .frame::after    { bottom: -1px; left: 50%; width: 1px; height: 8px; }
+    .frame i::before { left: -1px;   top: 50%;  width: 8px; height: 1px; }
+    .frame i::after  { right: -1px;  top: 50%;  width: 8px; height: 1px; }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 12vh 24px 8vh;
+    }
+    .mark {
+      height: clamp(88px, 20vw, 120px);
+      width: auto;
+      display: block;
+    }
+    h1 {
+      margin-top: 32px;
+      font-weight: 800;
+      font-size: clamp(34px, 8.5vw, 58px);
+      letter-spacing: 0.01em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .contact {
+      margin-top: 12px;
+      font-weight: 400;
+      font-size: clamp(11px, 2.4vw, 13px);
+      letter-spacing: 0.34em;
+      padding-left: 0.34em; /* offsets trailing tracking so the line centres */
+      text-transform: uppercase;
+      color: var(--white-soft);
+      text-decoration: none;
+      transition: color 120ms ease;
+    }
+    .contact:hover { color: var(--white); text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+    .contact:focus-visible { outline: 1px solid var(--white); outline-offset: 6px; }
+
+    footer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      font-family: "B612 Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .legal {
+      padding: 0 0 10px 12px;
+      font-size: 11px;
+      color: var(--label);
+      white-space: nowrap;
+    }
+
+    /* Title block: top/left borders only — the frame supplies right and bottom */
+    .block {
+      width: min(100%, 500px);
+      flex: none;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      border-top: 1px solid var(--rule);
+      border-left: 1px solid var(--rule);
+      overflow: hidden;
+    }
+    .block div {
+      padding: 10px 12px 11px;
+      min-width: 0;
+      box-shadow: 1px 1px 0 0 var(--rule); /* cell dividers; outer edges clipped by the block */
+    }
+    .block .w3 { grid-column: span 3; }
+    dt {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--label);
+      margin-bottom: 5px;
+    }
+    dd {
+      font-size: 13px;
+      line-height: 1.3;
+      color: var(--value);
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 640px) {
+      main { padding: 10vh 16px 7vh; }
+      footer { flex-direction: column; align-items: stretch; gap: 10px; }
+      .legal { padding: 0 0 0 4px; }
+      .block { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .contact { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <svg class="mark" viewBox="0 0 100 100" role="img" aria-label="Uneath mark" fill="#FFFFFF">
+      <path d="M86 6V60A36 36 0 0 1 14 60V6H36V60A14 14 0 0 0 64 60V6Z"/>
+    </svg>
+    <h1>Uneath</h1>
+    <a class="contact" href="mailto:eli@uneath.com">eli@uneath.com</a>
+  </main>
+
+  <footer>
+    <p class="legal">&copy; 2026 Uneath, Inc.</p>
+    <dl class="block" aria-label="Company details">
+      <div class="w3"><dt>Company</dt><dd>Uneath, Inc.</dd></div>
+      <div class="w3"><dt>Location</dt><dd>Palo Alto, California</dd></div>
+      <div class="w3"><dt>Field</dt><dd>Medical Devices</dd></div>
+      <div class="w3"><dt>Status</dt><dd>In Development Since 2023</dd></div>
+    </dl>
+  </footer>
+
+  <div class="frame" aria-hidden="true"><i></i></div>
+</body>
+</html>
